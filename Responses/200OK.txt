@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Server: Dzache/1.0.0 (MACOS)
+x-cache: HIT, MISS
+x-cache-hits: 408, 0
+x-clacks-overhead: GNU Terry Pratchett
+x-served-by: cache-lga21951-LGA, cache-mrs10582-MRS
+x-timer: S1762669444.090235,VS0,VE99
+Accept-Ranges: bytes

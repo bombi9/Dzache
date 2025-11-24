@@ -1,0 +1,5 @@
+HTTP/1.1 403 Forbidden
+Content-Type: text/html
+Accept-Ranges: bytes
+Server: Dzache/1.0.0 (MACOS)
+X-Cache: 403-HIT

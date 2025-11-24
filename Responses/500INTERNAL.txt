@@ -1,0 +1,3 @@
+HTTP/1.1 500 Internal Server Error
+Content-Type: text/html; charset=utf-8
+Server: Dzache/1.0.0 (MACOS)
