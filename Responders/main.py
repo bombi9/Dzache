@@ -22,8 +22,16 @@ class ChooseAndSend:
                 uc=self._userCount
             )
             self.serverResponse = response.getResponse()
+        
         elif self._requestType.upper() == "POST":
-            pass
+            response = Choose_Response_POST(
+                maxage=ChooseAndSend._MaxAge,
+                requestlnk=self.__requestLink,
+                rl=self._role,
+                uc=self._userCount
+            )
+            self.serverResponse = response.getResponse()
+        
         elif self._requestType.upper() == "HEAD":
             response = Choose_Response_HEAD(
                 maxage=ChooseAndSend._MaxAge,
