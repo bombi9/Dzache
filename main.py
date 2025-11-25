@@ -17,24 +17,40 @@ def hasRole():
     return True
 
 def userThread(connection):
-    message = connection.recv(8192).decode('utf-8', errors='ignore')
-    print(message)
+    global Response, clientNumber
 
-    requested = re.compile(r'GET\s+/[a-zA-Z0-9\./]*')
-    link = requested.match(message)
+    request = connection.recv(1024).decode('utf-8')
+    print(request)
 
-    print("Requested:", link.group()[4:])
+    requestType = re.search(r"^[A-Z]+", request)
 
-    requestType = link.group()[:3]
-    link = baseUrl + link.group()[4:]
+    if not requestType:
+        connection.close()
+        return
+
+    requestType = requestType.group()
+
+    # Extract path
+    link = re.search(r"\s\/[^\s]*", request)
+    if not link:
+        connection.close()
+        return
+
+    link = baseUrl + link.group()[1:]
+
+    # HEAD behaves like GET but WITHOUT body
+    sendBody = True
+    if requestType == "HEAD":
+        sendBody = False
+
     role = hasRole()
-
-    Sender = ChooseAndSend(requestType, link, True, 1)
+    Sender = ChooseAndSend(requestType, link, sendBody, 1)
     Response = Sender.getResponse()
 
     print(Response)
     connection.sendall(Response.encode('utf-8'))
     connection.close()
+
 
 while True:
     connection, address = server.accept()
