@@ -1,30 +1,21 @@
-from .GET.Choose import Choose_Response_GET
+from Responders.GET.Choose import ChooseGET
 
 class ChooseAndSend:
-    _MaxAge = 90000
-    def __init__(self, requestTyp, requestlnk, rle, usrcnt):
-        global getResponse
-
-        self._requestType = requestTyp
-        self.__requestLink = requestlnk
-        self._role = rle
-        self._userCount = usrcnt
-        self.serverResponse = '' 
-
-
-        if self._requestType.upper() == "GET":
-            response = Choose_Response_GET(maxage=ChooseAndSend._MaxAge, requestlnk=self.__requestLink, rl=self._role, uc=self._userCount)
-            self.serverResponse = response.getResponse()    
-        elif self._requestType.upper() == "POST":
-            pass
-        elif self._requestType.upper() == "HEAD":
-            pass
-        elif self._requestType.upper() == "UPDATE":
-            pass
-        elif self._requestType.upper() == "DELETE":
-            pass
-        else:
-            pass
+    def __init__(self, method, link, sendBody, user):
+        self.method = method
+        self.link = link
+        self.sendBody = sendBody
+        self.user = user
+        self.response = ""
 
     def getResponse(self):
-        return self.serverResponse
+        # GET + HEAD share same responders
+        if self.method == "GET" or self.method == "HEAD":
+            chooser = ChooseGET(self.link, self.user)
+            self.response = chooser.getResponse(sendBody=self.sendBody)
+
+        else:
+            # default 500 internal if method not supported
+            self.response = "HTTP/1.1 500 Internal Server Error\r\n\r\nMethod Not Supported"
+
+        return self.response
