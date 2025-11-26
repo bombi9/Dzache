@@ -1,8 +1,8 @@
 from .GET.Choose import Choose_Response_GET
 # Assuming you will create a HEAD response handler
 from .HEAD.Choose import Choose_Response_HEAD
-from .HEAD.Choose import Choose_Response_PUT
-from .HEAD.Choose import Choose_Response_DELETE
+from .PUT.Choose import Choose_Response_PUT
+from .DELETE.Choose import Choose_Response_DELETE
 
 
 class ChooseAndSend:
